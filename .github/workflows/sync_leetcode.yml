@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Sync
-        uses: Tap4J/LeetCode@v1
+        uses: Tap4J/LeetCode@main
         with:
           github-token: ${{ github.token }}
           leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
