@@ -1,21 +1,27 @@
-name: Sync Leetcode
+name: Sync LeetCode
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual triggering
   schedule:
-    - cron: "0 8 * * 6"
+    - cron: '0 0 * * *' # Runs daily at midnight (adjust as needed)
 
 jobs:
-  build:
+  sync_leetcode:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Sync
-        uses: Tap4J/LeetCode@main
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          github-token: ${{ github.token }}
-          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
-          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
-          destination-folder: my-folder
-          verbose: true
-          commit-header: "[LeetCode Sync]"
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Sync LeetCode problems
+        run: |
+          python sync.py
