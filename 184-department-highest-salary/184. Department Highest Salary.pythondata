@@ -1,0 +1,9 @@
+import pandas as pd
+
+def department_highest_salary(employee: pd.DataFrame, department: pd.DataFrame) -> pd.DataFrame:
+    df = employee.merge(department, left_on="departmentId", right_on="id", how="inner")
+    df = df.sort_values(by="salary", ascending=False)
+    df =df.rename(columns={"id_x":"id","name_x":"Employee", "id_y":"department_id","name_y":"Department", "salary":"Salary"})
+    high_salary = df.groupby("department_id").apply(lambda x: x[x["Salary"] == x["Salary"].max()]).reset_index(drop=True)
+    result = high_salary[["Department", "Employee", "Salary"]]
+    return(result)
