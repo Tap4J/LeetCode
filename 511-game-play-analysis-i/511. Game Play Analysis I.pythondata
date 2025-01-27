@@ -1,0 +1,7 @@
+import pandas as pd
+
+def game_analysis(activity: pd.DataFrame) -> pd.DataFrame:
+    df = activity.sort_values(by="event_date")
+    df = df.groupby("player_id")[["player_id", "event_date"]].min()
+    df.rename(columns={"event_date": "first_login"}, inplace=True)
+    return df
