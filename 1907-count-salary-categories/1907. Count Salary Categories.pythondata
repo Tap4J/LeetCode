@@ -1,0 +1,17 @@
+import pandas as pd
+
+def count_salary_categories(accounts: pd.DataFrame) -> pd.DataFrame:
+    def category_add(income):
+        if income < 20000:
+            return "Low Salary"
+        elif income >=20000 and income <=50000:
+            return "Average Salary"
+        else: 
+            return "High Salary"
+
+    accounts["category"] = accounts["income"].apply(category_add)
+    all_categories = ["Low Salary", "Average Salary", "High Salary"]
+    df = accounts.groupby("category")["account_id"].count().reset_index()
+    df = df.set_index("category").reindex(all_categories, fill_value=0).reset_index()
+    df.rename(columns={"account_id":"accounts_count"}, inplace=True)
+    return(df)
