@@ -1,0 +1,9 @@
+import pandas as pd
+
+def find_managers(employee: pd.DataFrame) -> pd.DataFrame:
+    df = employee.groupby("managerId").size().reset_index()
+    df.rename(columns={0:"manager"}, inplace=True)
+    five = df[df["manager"] >=5 ]
+    result = five.merge(employee[["id", "name"]], left_on="managerId", right_on="id", how="inner")
+    
+    return(result[["name"]])
