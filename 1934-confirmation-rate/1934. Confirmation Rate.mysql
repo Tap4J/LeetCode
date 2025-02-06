@@ -1,0 +1,7 @@
+# Write your MySQL query statement below
+Select Distinct(s.user_id),
+Round(
+    SUM(IF(c.action="confirmed", 1, 0)) OVER (Partition by s.user_id) / Count(*) Over (Partition by s.user_id), 2
+) as confirmation_rate
+From Signups s
+left join Confirmations c on s.user_id=c.user_id
