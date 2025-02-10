@@ -1,0 +1,8 @@
+# Write your MySQL query statement below
+Select product_id, year as first_year, quantity, price
+From Sales where (product_id, year) in
+(
+    Select product_id, min(year) as year
+    from Sales
+    Group by product_id 
+)
