@@ -1,0 +1,11 @@
+# Write your MySQL query statement below
+With cumweight As (
+    Select person_name, 
+    SUM(weight) Over(Order by turn) as total_weight
+    From Queue
+)
+Select person_name
+From cumweight
+where total_weight <= 1000
+Order by total_weight DESC
+Limit 1
