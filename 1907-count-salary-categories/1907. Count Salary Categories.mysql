@@ -1,0 +1,9 @@
+# Write your MySQL query statement below
+Select "Low Salary" as category, count(if(income<20000,1,null)) as accounts_count
+From Accounts
+Union All
+Select "Average Salary" as category, count(if(income>=20000 and income<=50000,1,null)) as accounts_count
+From Accounts
+Union All
+Select "High Salary" as category, count(if(income>50000,1,null)) as accounts_count
+From Accounts
