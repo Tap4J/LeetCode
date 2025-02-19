@@ -1,0 +1,6 @@
+# Write your MySQL query statement below
+Select employee_id
+From Employees
+where salary < 30000 and manager_id not in
+(select employee_id From employees)
+Order by employee_id
