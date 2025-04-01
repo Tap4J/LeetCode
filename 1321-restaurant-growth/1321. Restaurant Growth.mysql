@@ -1,0 +1,14 @@
+Select visited_on, 
+    (Select Sum(amount)
+    From Customer
+    where visited_on between DATE_SUB(c.visited_on, Interval 6 day) and c.visited_on
+    ) as amount,
+    Round(
+        (Select Sum(amount) / 7
+        From Customer
+        where visited_on between Date_sub(c.visited_on, INterval 6 day) and c.visited_on
+     ), 2) as average_amount
+From Customer c
+Where visited_on >=(Select Date_add(Min(visited_on), Interval 6 Day) From Customer)
+Group by visited_on
+Order By visited_on ASC
