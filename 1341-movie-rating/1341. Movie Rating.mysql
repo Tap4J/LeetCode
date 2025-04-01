@@ -1,0 +1,15 @@
+(Select u.name as results
+From MovieRating m
+Join Users u on m.user_id=u.user_id
+Group by u.Name
+order by Count(m.rating) Desc, u.name ASC
+Limit 1)
+Union all
+
+(Select f.title as results
+From MovieRating m
+JOIN Movies f on m.movie_id=f.movie_id
+where m.created_at like '2020-02%'
+Group by f.title
+Order by avg(m.rating) Desc, f.title asc
+limit 1)
