@@ -6,8 +6,8 @@ with difference as (
 	from Stadium 
 	where people>=100
 )
-select id, visit_date,people 
+select id, visit_date,people
 from difference
 where rn in ( 
-select rn from difference group by rn having count(1) >=3
+select rn from difference group by rn having count(*) >=3
 )
